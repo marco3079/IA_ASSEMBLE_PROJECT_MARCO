@@ -14,7 +14,7 @@ Detecção de objetos em tempo real, validação da sequência por zonas e rastr
 [![Edge Impulse](https://img.shields.io/badge/Edge%20Impulse-FOMO-111111)](https://www.edgeimpulse.com/)
 ![Status](https://img.shields.io/badge/status-prot%C3%B3tipo%20funcional-F2C94C)
 
-> **Página principal:** [abrir o AssemblyGuard no GitHub Pages](https://bottomup.com.br/wp-content/ghss-static-sites/site-ceac2fd1-c427-4f30-8096-f4ca81a9d61c/docs/arvore-processos.html)
+> **Página principal:** [abrir o AssemblyGuard no GitHub Pages](https://bottomup.com.br/wp-content/ghss-static-sites/site-eb754485-a1f8-4825-9e1a-5364b9cac6b3/docs/arvore-processos.html)
 
 O AssemblyGuard usa um **XIAO ESP32S3 Sense** para executar um modelo FOMO
 treinado no Edge Impulse sobre os frames da câmera. Os centroides detectados
@@ -69,7 +69,7 @@ git push origin marco
 ```
 
 Após o workflow terminar, a página estará em
-`https://bottomup.com.br/wp-content/ghss-static-sites/site-ceac2fd1-c427-4f30-8096-f4ca81a9d61c/docs/arvore-processos.html`.
+`https://bottomup.com.br/wp-content/ghss-static-sites/site-eb754485-a1f8-4825-9e1a-5364b9cac6b3/docs/arvore-processos.html`.
 
 | Camada | Responsabilidade | Entrada / saída |
 | --- | --- | --- |
