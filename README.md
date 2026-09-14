@@ -33,7 +33,7 @@ detecções e estado sem depender de nuvem durante a operação.
 
 ### Árvore interativa
 
-Abra a [árvore de processos](https://bottomup.com.br/wp-content/ghss-static-sites/site-ceac2fd1-c427-4f30-8096-f4ca81a9d61c/docs/arvore-processos.html)
+Abra a [árvore de processos](https://bottomup.com.br/wp-content/ghss-static-sites/site-eb754485-a1f8-4825-9e1a-5364b9cac6b3/docs/arvore-processos.html)
 ou a [versão local no repositório](docs/arvore-processos.html) para navegar pelo
 fluxo completo do projeto. A página permite buscar por etapa ou arquivo,
 selecionar cada fase e abrir diretamente o código e os guias relacionados.
