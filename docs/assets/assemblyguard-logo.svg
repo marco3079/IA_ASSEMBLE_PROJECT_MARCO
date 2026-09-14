@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" role="img" aria-labelledby="title desc">
+  <title id="title">AssemblyGuard</title>
+  <desc id="desc">Logo do AssemblyGuard com escudo, câmera e raio.</desc>
+  <defs>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#115e59"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#facc15"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <path d="M120 18 215 53v66c0 50-38 82-95 103-57-21-95-53-95-103V53z" fill="url(#shield)"/>
+  <path d="M120 39 193 66v52c0 38-27 63-73 82-46-19-73-44-73-82V66z" fill="#0b3f3c" opacity=".55"/>
+  <rect x="65" y="78" width="110" height="70" rx="18" fill="#f8fafc"/>
+  <circle cx="120" cy="113" r="25" fill="#0f766e"/>
+  <circle cx="120" cy="113" r="12" fill="#d9f99d"/>
+  <rect x="82" y="63" width="34" height="18" rx="7" fill="#f8fafc"/>
+  <path d="m132 122 17-35h-21l-22 43h19l-12 31 35-45z" fill="url(#bolt)"/>
+  <text x="265" y="125" fill="#123b38" font-family="Verdana,Segoe UI,sans-serif" font-size="72" font-weight="700" letter-spacing="1">Assembly</text>
+  <text x="662" y="125" fill="#0f766e" font-family="Verdana,Segoe UI,sans-serif" font-size="72" font-weight="700" letter-spacing="1">Guard</text>
+  <text x="270" y="169" fill="#64748b" font-family="Verdana,Segoe UI,sans-serif" font-size="19" letter-spacing="5">TINYML ASSEMBLY MONITORING</text>
+</svg>

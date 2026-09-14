@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-09",
+  "project": "AssemblyGuard",
+  "page": {
+    "eyebrow": "Mapa operacional",
+    "title": "Da imagem ao alerta",
+    "intro": "Explore o caminho completo do projeto: preparação do dataset, treinamento, validação e execução embarcada do ciclo de montagem.",
+    "treeTitle": "Árvore de processos",
+    "selectedLabel": "Etapa selecionada",
+    "searchPlaceholder": "Buscar etapa, arquivo ou tecnologia...",
+    "footer": "AssemblyGuard · TinyML aplicado à montagem do Bloq Volt · abra esta página por um servidor local ou pelo GitHub Pages.",
+    "logo": {
+      "src": "assets/assemblyguard-logo.svg",
+      "alt": "Logo AssemblyGuard"
+    }
+  },
+  "summary": {
+    "macroStages": 7,
+    "macroStagesLabel": "macroetapas do processo",
+    "traceabilityOutputs": 4,
+    "traceabilityOutputsLabel": "saídas de rastreabilidade",
+    "documentedProgress": 68,
+    "documentedProgressLabel": "fluxo documentado e funcional"
+  },
+  "defaultStage": "inspecao",
+  "stages": [
+    {
+      "id": "inspecao",
+      "icon": "01",
+      "title": "Inspeção dos vídeos",
+      "file": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/scripts/inspecionar_videos.py",
+      "status": "done",
+      "statusText": "concluído",
+      "summary": "Confirma alinhamento entre sessões, layout da bancada, overlays e ROI antes de gerar qualquer frame.",
+      "points": [
+        "Gera folhas de contato A, B e C.",
+        "Compara A e B no mesmo índice de frame.",
+        "Salva previews para validação visual do enquadramento."
+      ],
+      "links": [
+        { "label": "Código", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/inspecionar_videos.py" },
+        { "label": "Funções", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/funcoes/inspecionar-videos/README.md" }
+      ]
+    },
+    {
+      "id": "dataset",
+      "icon": "02",
+      "title": "Preparação do dataset V2",
+      "file": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/pipeline_deteccao.py",
+      "status": "done",
+      "statusText": "concluído",
+      "summary": "Limpa os frames, aplica ROI e preserva a separação por sessão: C para treino e B para teste.",
+      "points": [
+        "Remove tarjas fixas e móveis por inpainting.",
+        "Produz imagens 320×240 e metadados JSON.",
+        "Evita vazamento temporal entre treino e teste."
+      ],
+      "links": [
+        { "label": "Código", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/pipeline_deteccao.py" },
+        { "label": "Funções", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/funcoes/pipeline-deteccao/README.md" }
+      ]
+    },
+    {
+      "id": "anotacao",
+      "icon": "03",
+      "title": "Anotação e revisão",
+      "file": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/gerar_preanotacao.py",
+      "status": "review",
+      "statusText": "revisão",
+      "summary": "Gera caixas preliminares e transfere a revisão final para o Edge Impulse antes do treinamento.",
+      "points": [
+        "Detecta candidatos por cor e geometria.",
+        "Classes principais: peca, pilha e ferro_solda.",
+        "A revisão humana é obrigatória para corrigir falsos positivos e caixas ausentes."
+      ],
+      "links": [
+        { "label": "Código", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/gerar_preanotacao.py" },
+        { "label": "Guia", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/GUIA_ESTAGIARIA.md" }
+      ]
+    },
+    {
+      "id": "treino",
+      "icon": "04",
+      "title": "Treinamento FOMO",
+      "file": "Edge Impulse Studio",
+      "status": "done",
+      "statusText": "concluído",
+      "summary": "Treina e exporta o modelo de detecção de objetos para execução no PC e no XIAO ESP32S3.",
+      "points": [
+        "Impulse 96×96, grayscale, FOMO MobileNetV2.",
+        "Exportação int8 com EON para Arduino.",
+        "O desempenho deve ser comparado no teste cross-session."
+      ],
+      "links": [
+        { "label": "Guia Edge Impulse", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/GUIA_EDGE_IMPULSE.md" },
+        { "label": "Plano V2", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/PLANO_V2_DETECCAO.md" }
+      ]
+    },
+    {
+      "id": "pc",
+      "icon": "05",
+      "title": "Validação no PC",
+      "file": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/assemblyguard_pc.py",
+      "status": "done",
+      "statusText": "disponível",
+      "summary": "Executa o modelo em vídeo, RTSP ou webcam e reproduz a interpretação de zonas antes do deploy.",
+      "points": [
+        "Decodifica mapas FOMO e centroides.",
+        "Desenha zonas, confiança e estado.",
+        "Registra latência e alertas em CSV."
+      ],
+      "links": [
+        { "label": "Código", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/scripts/assemblyguard_pc.py" },
+        { "label": "Funções", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/funcoes/assemblyguard-pc/README.md" }
+      ]
+    },
+    {
+      "id": "firmware",
+      "icon": "06",
+      "title": "Execução no XIAO ESP32S3",
+      "file": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/AssemblyGuard_XIAO/AssemblyGuard_XIAO.ino",
+      "status": "done",
+      "statusText": "funcional",
+      "summary": "Captura a câmera, roda FOMO, confirma transições e publica o monitoramento local sem depender da nuvem.",
+      "points": [
+        "Câmera OV2640 em QVGA e buffer na PSRAM.",
+        "Máquina de estados com confirmação de três frames.",
+        "Servidor web, Serial, microSD e LED de alerta."
+      ],
+      "links": [
+        { "label": "Firmware", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/AssemblyGuard_XIAO/AssemblyGuard_XIAO.ino" },
+        { "label": "Funções", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/funcoes/firmware/README.md" }
+      ]
+    },
+    {
+      "id": "ciclo",
+      "icon": "07",
+      "title": "Ciclo monitorado",
+      "file": "espera → preparo → montagem → solda → empilhagem → fim",
+      "status": "review",
+      "statusText": "validar",
+      "summary": "Interpreta a posição dos objetos, alerta etapas puladas e fecha o ciclo quando a pilha chega à saída.",
+      "points": [
+        "O estado só avança; leituras atrasadas são ignoradas.",
+        "Um desvio confirmado salva JPEG e escreve no CSV.",
+        "A validação de campo deve medir falsos positivos e falsos negativos."
+      ],
+      "links": [
+        { "label": "Plano de validação", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/docs/PLANO_V2_DETECCAO.md" },
+        { "label": "Handoff", "href": "https://github.com/karlsantana/IA_ASSEMBLE_PROJECT/blob/main/LEIA-ME_PRIMEIRO.md" }
+      ]
+    }
+  ]
+}

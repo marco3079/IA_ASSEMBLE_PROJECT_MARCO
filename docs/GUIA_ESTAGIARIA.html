@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia AssemblyGuard — Estagiária</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F5F7FA;
+    --surface: #FFFFFF;
+    --ink: #1D2833;
+    --muted: #566675;
+    --line: #D8E0E8;
+    --accent: #2563A8;
+    --accent-soft: #E3EDF8;
+    --warn: #96540A;
+    --warn-bg: #FBF1E2;
+    --warn-line: #E8CD9F;
+    --ok: #2E7A4E;
+    --ok-bg: #E4F2E9;
+    --code-bg: #EDF1F5;
+    --zone-fill: #DCE6F2;
+  }
+  :root:not([data-theme="light"]) { }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131A22;
+      --surface: #1B2430;
+      --ink: #E5EBF2;
+      --muted: #97A6B6;
+      --line: #2E3B49;
+      --accent: #7FB2E8;
+      --accent-soft: #223549;
+      --warn: #E3AC58;
+      --warn-bg: #2C2416;
+      --warn-line: #55431F;
+      --ok: #7CC79A;
+      --ok-bg: #17291E;
+      --code-bg: #232E3B;
+      --zone-fill: #24354A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131A22;
+    --surface: #1B2430;
+    --ink: #E5EBF2;
+    --muted: #97A6B6;
+    --line: #2E3B49;
+    --accent: #7FB2E8;
+    --accent-soft: #223549;
+    --warn: #E3AC58;
+    --warn-bg: #2C2416;
+    --warn-line: #55431F;
+    --ok: #7CC79A;
+    --ok-bg: #17291E;
+    --code-bg: #232E3B;
+    --zone-fill: #24354A;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Public Sans", "Segoe UI", system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+
+  h1, h2, h3 {
+    font-family: "Archivo", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h1 { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 1.4rem; font-weight: 650; margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--line); }
+  h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1.75rem; }
+  p { margin: 0.9rem 0; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .lede { color: var(--muted); font-size: 1.05rem; margin-top: 0.8rem; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+    margin-top: 1.2rem; font-size: 0.85rem; color: var(--muted);
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    background: var(--code-bg);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+  .path { color: var(--accent); font-weight: 500; }
+
+  .step-part {
+    display: flex; align-items: baseline; gap: 0.75rem;
+  }
+  .part-tag {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--surface);
+    background: var(--accent);
+    border-radius: 4px;
+    padding: 0.15rem 0.55rem;
+    flex: none;
+    transform: translateY(-0.15em);
+  }
+
+  ol, ul { padding-left: 1.4rem; margin: 0.9rem 0; }
+  li { margin: 0.45rem 0; }
+  ol.steps > li { padding-left: 0.25rem; margin: 0.7rem 0; }
+
+  .table-scroll { overflow-x: auto; margin: 1.1rem 0; }
+  table {
+    border-collapse: collapse; width: 100%;
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left; padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: "Archivo", sans-serif; font-weight: 600;
+    font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  tr:last-child td { border-bottom: none; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.4rem 1rem;
+    margin: 1.1rem 0;
+  }
+  .card .table-scroll { margin: 0.4rem 0; }
+
+  .callout {
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.2rem 0;
+    font-size: 0.95rem;
+  }
+  .callout p { margin: 0.4rem 0; }
+  .callout-warn { background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--ink); }
+  .callout-warn strong:first-child { color: var(--warn); }
+  .callout-key { background: var(--accent-soft); border: 1px solid var(--line); }
+  .callout-key strong:first-child { color: var(--accent); }
+  .callout-ok { background: var(--ok-bg); border: 1px solid var(--line); }
+  .callout-ok strong:first-child { color: var(--ok); }
+
+  figure { margin: 1.5rem 0; }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; text-align: center; }
+  .diagram { display: block; width: 100%; height: auto; }
+  .diagram text { font-family: "Archivo", sans-serif; }
+  .diagram .zlabel { font-size: 13px; font-weight: 600; fill: var(--ink); }
+  .diagram .zsub { font-size: 10.5px; fill: var(--muted); font-family: "Public Sans", sans-serif; font-weight: 400; }
+  .diagram .flow { font-size: 11px; font-weight: 600; fill: var(--accent); letter-spacing: 0.06em; }
+
+  .checklist { list-style: none; padding-left: 0; }
+  .checklist li {
+    padding-left: 1.9rem; position: relative; margin: 0.55rem 0;
+  }
+  .checklist li::before {
+    content: ""; position: absolute; left: 0; top: 0.28em;
+    width: 0.95em; height: 0.95em;
+    border: 2px solid var(--accent); border-radius: 4px;
+  }
+  footer {
+    margin-top: 3.5rem; padding-top: 1.25rem;
+    border-top: 2px solid var(--line);
+    font-size: 0.85rem; color: var(--muted);
+  }
+  * { box-sizing: border-box; }
+  img, svg { max-width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">AssemblyGuard · Edge Impulse · Bloq Volt</div>
+  <h1>Guia AssemblyGuard</h1>
+  <p class="lede">Passo a passo para revisar as anotações, treinar e exportar o
+  modelo de detecção de objetos — escrito para quem nunca usou o Edge Impulse.</p>
+  <div class="meta">
+    <span>Ferramenta: <b>studio.edgeimpulse.com</b> (só navegador)</span>
+    <span>Tempo: <b>~meio dia</b></span>
+    <span>Projeto: <b>AssemblyGuard · ID 1095021</b></span>
+  </div>
+</header>
+
+<h2>1 · Entenda o projeto antes de clicar em qualquer coisa</h2>
+<p>Uma câmera filma a bancada onde o operador monta o <strong>Bloq Volt</strong>
+(as peças azuis em formato de "donut"). Um pequeno computador (XIAO ESP32S3)
+roda um modelo de visão computacional que <strong>detecta objetos</strong> no
+vídeo. O modelo <em>não</em> decide a etapa do processo — ele só responde:
+<em>"onde estão as peças, as pilhas e o ferro de solda neste frame?"</em>.
+Quem deduz a etapa é o programa do equipamento, cruzando a
+<strong>posição</strong> desses objetos com zonas da imagem.</p>
+<p>Por isso a anotação é tão importante: se o modelo errar "onde estão os
+objetos", toda a lógica de etapas erra junto.</p>
+
+<h3>1.1 · As quatro classes de objeto (o que recebe caixa)</h3>
+<div class="card"><div class="table-scroll">
+<table>
+  <tr><th>Classe</th><th>O que é</th><th>Exemplos</th></tr>
+  <tr><td><code>peca</code></td><td><strong>UM</strong> donut azul sozinho</td>
+      <td>na bancada, na mão do operador, na bandeja</td></tr>
+  <tr><td><code>pilha</code></td><td><strong>2 ou mais</strong> donuts empilhados</td>
+      <td>colunas do estoque na caixa de entrada, pilha em formação na bancada, pilha pronta na saída</td></tr>
+  <tr><td><code>ferro_solda</code></td><td>o corpo do ferro de solda</td>
+      <td>no suporte de descanso ou na mão</td></tr>
+  <tr><td><code>aplicador_cola</code></td><td>o aplicador de cola (ferramenta de corpo verde)</td>
+      <td>na mão do operador ou apoiado na bancada</td></tr>
+</table>
+</div></div>
+<div class="callout callout-key">
+  <p><strong>Como diferenciar peca de pilha:</strong> conte. 1 donut =
+  <code>peca</code>. 2 ou mais empilhados = <code>pilha</code>. Lado a lado
+  (sem empilhar) = cada um é uma <code>peca</code> separada.</p>
+</div>
+<div class="callout callout-warn">
+  <p><strong>Atenção com aplicador_cola:</strong> é uma classe NOVA — a
+  anotação automática não a conhece, então ela começa com ZERO caixas.
+  Você vai criá-las todas. Ele é pequeno e fica muito na mão do operador;
+  vale a mesma regra da mão coberta (regra 3 das regras de ouro).</p>
+</div>
+
+<h3>1.2 · As zonas da imagem e as etapas do processo</h3>
+<figure>
+<svg class="diagram" viewBox="0 0 640 330" role="img" aria-label="Mapa das quatro zonas do frame da câmera">
+  <rect x="8" y="8" width="624" height="270" rx="10" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+  <!-- saida -->
+  <rect x="24" y="52" width="118" height="116" rx="8" fill="var(--zone-fill)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="83" y="100" text-anchor="middle" class="zlabel">SAÍDA</text>
+  <text x="83" y="120" text-anchor="middle" class="zsub">pilha pronta</text>
+  <text x="83" y="135" text-anchor="middle" class="zsub">(esquerda)</text>
+  <!-- bancada -->
+  <rect x="176" y="76" width="286" height="160" rx="8" fill="var(--zone-fill)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="319" y="146" text-anchor="middle" class="zlabel">BANCADA</text>
+  <text x="319" y="166" text-anchor="middle" class="zsub">área de trabalho</text>
+  <!-- entrada -->
+  <rect x="496" y="24" width="118" height="160" rx="8" fill="var(--zone-fill)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="555" y="92" text-anchor="middle" class="zlabel">ENTRADA</text>
+  <text x="555" y="112" text-anchor="middle" class="zsub">caixa de origem</text>
+  <text x="555" y="127" text-anchor="middle" class="zsub">(direita)</text>
+  <!-- ferro -->
+  <rect x="24" y="192" width="118" height="70" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="83" y="222" text-anchor="middle" class="zlabel">DESCANSO</text>
+  <text x="83" y="240" text-anchor="middle" class="zsub">do ferro de solda</text>
+  <!-- flow arrow -->
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+    </marker>
+  </defs>
+  <path d="M 496 300 L 152 300" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+  <text x="500" y="318" class="flow">INÍCIO: pilha entra pela direita</text>
+  <text x="24" y="318" class="flow">FIM: pilha pronta na saída</text>
+</svg>
+<figcaption>O frame da câmera é dividido em 4 zonas. O material flui da direita para a esquerda.</figcaption>
+</figure>
+
+<p>A sequência esperada de um ciclo, e a regra que caracteriza cada etapa:</p>
+<div class="card"><div class="table-scroll">
+<table>
+  <tr><th>#</th><th>Etapa</th><th>O que caracteriza (regra)</th></tr>
+  <tr><td>0</td><td><strong>espera</strong></td><td>nenhum objeto relevante na bancada</td></tr>
+  <tr><td>1</td><td><strong>preparo</strong></td><td>≥ 1 <code>peca</code> na bancada</td></tr>
+  <tr><td>2</td><td><strong>montagem</strong></td><td>≥ 3 <code>peca</code> na bancada</td></tr>
+  <tr><td>3</td><td><strong>solda</strong></td><td><code>ferro_solda</code> FORA da zona de descanso (em uso)</td></tr>
+  <tr><td>4</td><td><strong>empilhagem</strong></td><td><code>pilha</code> presente na bancada</td></tr>
+  <tr><td>5</td><td><strong>fim</strong></td><td><code>pilha</code> presente na zona de SAÍDA</td></tr>
+</table>
+</div></div>
+<div class="callout callout-key">
+  <p><strong>Início e fim do ciclo:</strong> o ciclo COMEÇA quando a
+  <code>pilha</code> de material entra pela zona da direita (caixa de origem)
+  e TERMINA quando a pilha pronta aparece na zona de saída, à esquerda.
+  É a <code>pilha</code> que delimita o ciclo — por isso ela é a classe mais
+  crítica. Uma <code>pilha</code> anotada como <code>peca</code> quebra a
+  detecção de início/fim.</p>
+</div>
+<p>Você não configura etapas no Edge Impulse — elas vivem no programa do
+equipamento. Mas precisa conhecê-las para anotar direito.</p>
+<p>A etapa de <strong>cola</strong> ainda não está na tabela: ela será
+acrescentada ao programa do equipamento depois que o modelo estiver
+detectando o <code>aplicador_cola</code>. A anotação vem primeiro — é o seu
+trabalho que habilita essa etapa.</p>
+
+<h2>2 · Acessar o projeto</h2>
+<ol class="steps">
+  <li>Abra <strong>https://studio.edgeimpulse.com</strong> no Chrome.</li>
+  <li>Faça login com a conta <code>Carlosengauto21</code> (peça a senha ao Carlos).</li>
+  <li>Abra o projeto <strong>AssemblyGuard</strong> (ID <strong>1095021</strong>).</li>
+</ol>
+<p>O projeto já tem as 200 imagens carregadas e uma anotação automática feita
+por IA. <strong>O seu trabalho principal é a Parte B</strong> (revisar e
+corrigir). A Parte A só é necessária para começar do zero ou adicionar
+imagens novas.</p>
+
+<h2><span class="step-part"><span class="part-tag">A</span> Importar as imagens (só se necessário)</span></h2>
+<p>As imagens ficam em <code>Ia_esp32\anotar\</code>: <code>train\</code>
+(140 fotos da sessão C) e <code>test\</code> (60 fotos da sessão B). Essa
+separação é proposital: treino e teste vêm de <strong>dias e operadores
+diferentes</strong>, para provar que o modelo generaliza.</p>
+<ol class="steps">
+  <li>Se for projeto novo: <span class="mono path">Create new project</span> →
+      tipo <strong>Images → Classify multiple objects (object detection)</strong>.
+      Sem isso não existe fila de anotação — é o erro mais comum.</li>
+  <li><span class="mono path">Data acquisition → Upload data</span>.</li>
+  <li><strong>1º lote:</strong> os 140 JPG de <code>anotar\train</code> →
+      categoria <strong>Training</strong> → label <strong>Unlabeled</strong>
+      (o rótulo virá das caixas, não do nome do arquivo) → Upload.</li>
+  <li><strong>2º lote:</strong> os 60 JPG de <code>anotar\test</code> →
+      categoria <strong>Testing</strong> → Unlabeled → Upload.</li>
+  <li>Confira no topo do Data acquisition: <strong>140 / 60 (70% / 30%)</strong>.</li>
+</ol>
+<div class="callout callout-warn">
+  <p><strong>⚠ Nunca clique em "Perform train/test split".</strong> Esse botão
+  embaralha treino e teste e destrói a separação por sessão — não tem
+  desfazer. Se clicou sem querer, pare e avise o Carlos.</p>
+</div>
+
+<h2><span class="step-part"><span class="part-tag">B</span> Revisar e corrigir as anotações (o trabalho principal)</span></h2>
+<p>A anotação atual foi feita por IA, sem revisão humana. Ela erra de um jeito
+conhecido: <strong>deixa objetos sem caixa</strong>. E esse é o pior erro
+possível — uma peça visível sem caixa ensina o modelo que "aquilo é fundo",
+e ele aprende a <em>ignorar</em> a peça.</p>
+
+<h3>Regras de ouro da anotação</h3>
+<ol>
+  <li><strong>Todo objeto visível das 4 classes precisa de caixa, em todas as
+      imagens</strong> — inclusive as colunas de donuts do estoque e os donuts
+      da bandeja. Parece exagero, mas é assim que o modelo aprende.</li>
+  <li><strong>Caixa centrada no objeto.</strong> O modelo usa só o centro da
+      caixa; o tamanho exato importa menos que o centro estar em cima do objeto.</li>
+  <li><strong>Objeto coberto pela mão:</strong> se ainda dá para reconhecer,
+      anote a parte visível; se está mais de ~70% coberto, não anote.</li>
+  <li><strong>Consistência vale mais que perfeição:</strong> a mesma coisa
+      recebe o mesmo rótulo em todas as imagens.</li>
+  <li>Nos frames <code>B_*</code> podem aparecer borrões da limpeza digital do
+      vídeo — ignore os borrões, anote os objetos.</li>
+</ol>
+
+<h3>O passo a passo</h3>
+<ol class="steps">
+  <li><span class="mono path">Data acquisition</span> → clique numa imagem da
+      lista para abrir o editor de caixas.</li>
+  <li>Corrija na ordem de prioridade (do que mais melhora o modelo para o que
+      menos melhora):
+    <ol>
+      <li><strong>Donuts visíveis sem caixa</strong> → desenhe a caixa e rotule
+          <code>peca</code> (ou <code>pilha</code> se forem 2+ empilhados).
+          É o erro mais comum e o que mais derruba o desempenho.</li>
+      <li><strong><code>aplicador_cola</code></strong> (a ferramenta verde) →
+          classe nova, sem nenhuma caixa ainda. Anote em <strong>todo frame em
+          que ele estiver visível</strong> — na mão ou apoiado na bancada. Na
+          primeira caixa, digite o nome exatamente assim:
+          <code>aplicador_cola</code>.</li>
+      <li><strong><code>ferro_solda</code> sem caixa</strong> onde o ferro
+          aparece — hoje só existem 43 exemplos, pouquíssimo.</li>
+      <li><strong><code>peca</code> e <code>pilha</code> trocadas</strong> →
+          clique na caixa e corrija a classe.</li>
+      <li><strong>Caixas "fantasma"</strong> (caixa onde não há nada) → delete.</li>
+    </ol>
+  </li>
+  <li>Clique <span class="mono path">Save labels</span> e vá para a próxima.</li>
+  <li>Para desenhar: clique e arraste. Para rotular: escolha
+      <code>peca</code>, <code>pilha</code>, <code>ferro_solda</code> ou
+      <code>aplicador_cola</code>.</li>
+  <li><strong>Revise também os frames <code>B_*</code> (Testing)</strong> —
+      eles são o gabarito da prova; se o gabarito está errado, a nota do
+      modelo não significa nada.</li>
+</ol>
+<div class="callout callout-ok">
+  <p><strong>Quanto revisar?</strong> Por causa do <code>aplicador_cola</code>,
+  a meta é passar por <strong>todas as 200 imagens</strong> — uma classe nova
+  anotada só em parte do dataset se sabota sozinha (os frames onde ela aparece
+  sem caixa ensinam o modelo a ignorá-la). A boa notícia: a câmera é fixa e as
+  cenas se repetem; depois das primeiras imagens flui a ~15–20 s por imagem.
+  Se o tempo apertar, priorize completar o <code>aplicador_cola</code> e os
+  donuts sem caixa em todas as imagens, e deixe os retoques finos por
+  último.</p>
+</div>
+
+<h2><span class="step-part"><span class="part-tag">C</span> Retreinar o modelo</span></h2>
+<ol class="steps">
+  <li>Menu lateral → <span class="mono path">Impulse design → Object detection</span>.</li>
+  <li>Confira os parâmetros (já devem estar assim):
+    <ul>
+      <li>Training cycles (épocas): <strong>60</strong></li>
+      <li>Learning rate: <strong>0.001</strong></li>
+      <li>Validation set size: <strong>20%</strong></li>
+      <li>Data augmentation: <strong>ligado</strong></li>
+      <li>Arquitetura: <strong>FOMO (Faster Objects, More Objects) MobileNetV2 0.35</strong></li>
+    </ul>
+  </li>
+  <li>Clique <span class="mono path">Save &amp; train</span>. Demora ~10–15 min —
+      pode deixar a aba aberta e fazer outra coisa.</li>
+  <li>Ao terminar, anote o <strong>F1 score por classe</strong> (validação).</li>
+</ol>
+<div class="callout callout-key">
+  <p><strong>Baseline para comparar</strong> (antes da revisão humana):
+  F1 geral <strong>0,54</strong> — <code>pilha</code> 0,83 ·
+  <code>peca</code> 0,39 · <code>ferro_solda</code> 0,27. O
+  <code>aplicador_cola</code> não tem número anterior (classe nova — o
+  primeiro F1 dele é obra sua). Qualquer melhora sobre o baseline é
+  resultado seu — registre para o relatório.</p>
+</div>
+<p>Se a página pedir para regenerar features: aba
+<span class="mono path">Image</span> → Save parameters → Generate features →
+espere → volte ao Object detection.</p>
+
+<h2><span class="step-part"><span class="part-tag">D</span> Avaliar no conjunto de teste (o número que vale)</span></h2>
+<p>O F1 do treino usa imagens parecidas com as de treino. O número honesto vem
+do teste — outra sessão, outro dia, outra pessoa operando:</p>
+<ol class="steps">
+  <li>Menu <span class="mono path">Model testing</span> →
+      <span class="mono path">Classify all</span>.</li>
+  <li>Anote o F1 por classe e o global.</li>
+  <li><strong>Metas:</strong> F1 ≥ 0,80 por classe · ≥ 0,85 global.
+      Baseline anterior: <strong>0,23</strong>. Não desanime se não bater a
+      meta de primeira — compare com 0,23 e registre a evolução.</li>
+  <li>Se <code>peca</code> e <code>pilha</code> se confundirem
+      sistematicamente na matriz de confusão, avise o Carlos (existe um plano B).</li>
+</ol>
+
+<h2><span class="step-part"><span class="part-tag">E</span> Exportar o modelo treinado</span></h2>
+<ol class="steps">
+  <li>Menu <span class="mono path">Deployment</span>.</li>
+  <li>No campo de busca de formato, escolha <strong>Arduino library</strong>.</li>
+  <li>Model optimizations: <strong>Quantized (int8)</strong>.</li>
+  <li>EON Compiler: <strong>ligado</strong> (modelo menor e mais rápido).</li>
+  <li>Clique <span class="mono path">Build</span> — baixa um arquivo
+      <code>ei-assemblyguard-arduino-X.Y.Z.zip</code>.
+      <em>(No PC do Carlos o Chrome baixa em <code>D:\</code>, não em Downloads.)</em></li>
+  <li><strong>Entregue o .zip:</strong> copie para a pasta do projeto
+      (<code>Ia_esp32\</code>) com o nome original e avise que a versão nova
+      está pronta. Não precisa descompactar.</li>
+</ol>
+<p>Quem grava no equipamento usa esse zip no Arduino IDE (passo a passo no
+arquivo <code>GUIA_EDGE_IMPULSE.md</code>, Fase 6).</p>
+
+<h2>Checklist final</h2>
+<ul class="checklist">
+  <li>Todas as 200 imagens percorridas (treino E teste)</li>
+  <li>Nenhum donut visível ficou sem caixa nas imagens revisadas</li>
+  <li><code>aplicador_cola</code> anotado em TODOS os frames em que aparece (classe nova, começou do zero)</li>
+  <li><code>pilha</code> vs <code>peca</code> conferidos (2+ empilhados = pilha)</li>
+  <li>Modelo retreinado (60 épocas, FOMO 0.35)</li>
+  <li>F1 de validação anotado e comparado com o baseline 0,54</li>
+  <li>Model testing rodado; F1 do teste comparado com 0,23</li>
+  <li>ZIP exportado (int8 + EON) e copiado para a pasta do projeto</li>
+  <li>Botão "Perform train/test split" NÃO foi clicado em momento algum</li>
+</ul>
+
+<h2>Problemas comuns</h2>
+<div class="card"><div class="table-scroll">
+<table>
+  <tr><th>Sintoma</th><th>O que fazer</th></tr>
+  <tr><td>Não aparece opção de desenhar caixas</td>
+      <td>O projeto não está em modo <em>Bounding boxes</em>:
+          <span class="mono path">Dashboard → Project info → Labeling method →
+          Bounding boxes (object detection)</span></td></tr>
+  <tr><td>O treino termina com erro</td>
+      <td>Rode <strong>Generate features</strong> na aba Image e treine de novo</td></tr>
+  <tr><td>"Job failed / 500" em ferramentas de IA do Studio</td>
+      <td>Bug conhecido do servidor deles: rode de novo imediatamente —
+          costuma funcionar na 2ª tentativa</td></tr>
+  <tr><td>F1 do teste bem menor que o da validação</td>
+      <td>Esperado até certo ponto (o teste é outra sessão). Se a diferença
+          for enorme, chame o Carlos com a matriz de confusão</td></tr>
+  <tr><td>Cliquei em algo e o dataset mudou</td>
+      <td>Pare, não tente consertar sozinha, avise o Carlos</td></tr>
+</table>
+</div></div>
+
+<footer>
+  AssemblyGuard · Bottomup Engenharia · Monitoramento de montagem do Bloq Volt
+  com FOMO no XIAO ESP32S3 Sense · Documentos-irmãos na pasta do projeto:
+  <code>LEIA-ME_PRIMEIRO.md</code>, <code>GUIA_EDGE_IMPULSE.md</code>,
+  <code>PLANO_V2_DETECCAO.md</code>
+</footer>
+</div>
+</body>
+</html>

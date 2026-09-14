@@ -1,0 +1,189 @@
+{
+  "vocabulario": [
+    "espera",
+    "preparo",
+    "montagem",
+    "solda",
+    "empilhagem 1",
+    "empilhagem 2",
+    "fim"
+  ],
+  "ocr_validas_pct": 97.5,
+  "segmentos": [
+    {
+      "ini": 0,
+      "fim": 914,
+      "classe": "espera"
+    },
+    {
+      "ini": 915,
+      "fim": 1874,
+      "classe": "preparo"
+    },
+    {
+      "ini": 1890,
+      "fim": 2339,
+      "classe": "solda"
+    },
+    {
+      "ini": 2340,
+      "fim": 2819,
+      "classe": "montagem"
+    },
+    {
+      "ini": 2850,
+      "fim": 3059,
+      "classe": "montagem"
+    },
+    {
+      "ini": 3090,
+      "fim": 4004,
+      "classe": "empilhagem 1"
+    },
+    {
+      "ini": 4005,
+      "fim": 4229,
+      "classe": "solda"
+    },
+    {
+      "ini": 4230,
+      "fim": 4799,
+      "classe": "empilhagem 2"
+    },
+    {
+      "ini": 4800,
+      "fim": 5069,
+      "classe": "fim"
+    },
+    {
+      "ini": 5070,
+      "fim": 5144,
+      "classe": "preparo"
+    },
+    {
+      "ini": 5160,
+      "fim": 5489,
+      "classe": "solda"
+    },
+    {
+      "ini": 5520,
+      "fim": 5834,
+      "classe": "solda"
+    },
+    {
+      "ini": 5835,
+      "fim": 6509,
+      "classe": "empilhagem 1"
+    },
+    {
+      "ini": 6570,
+      "fim": 7316,
+      "classe": "solda"
+    }
+  ],
+  "train_segmentos": [
+    {
+      "ini": 0,
+      "fim": 639,
+      "classe": "espera"
+    },
+    {
+      "ini": 915,
+      "fim": 1874,
+      "classe": "preparo"
+    },
+    {
+      "ini": 1890,
+      "fim": 2339,
+      "classe": "solda"
+    },
+    {
+      "ini": 5160,
+      "fim": 5489,
+      "classe": "solda"
+    },
+    {
+      "ini": 6570,
+      "fim": 7316,
+      "classe": "solda"
+    },
+    {
+      "ini": 2340,
+      "fim": 2819,
+      "classe": "montagem"
+    },
+    {
+      "ini": 3090,
+      "fim": 4004,
+      "classe": "empilhagem 1"
+    },
+    {
+      "ini": 4230,
+      "fim": 4628,
+      "classe": "empilhagem 2"
+    },
+    {
+      "ini": 4800,
+      "fim": 4988,
+      "classe": "fim"
+    }
+  ],
+  "test_segmentos": [
+    {
+      "ini": 640,
+      "fim": 914,
+      "classe": "espera"
+    },
+    {
+      "ini": 5070,
+      "fim": 5144,
+      "classe": "preparo"
+    },
+    {
+      "ini": 4005,
+      "fim": 4229,
+      "classe": "solda"
+    },
+    {
+      "ini": 5520,
+      "fim": 5834,
+      "classe": "solda"
+    },
+    {
+      "ini": 2850,
+      "fim": 3059,
+      "classe": "montagem"
+    },
+    {
+      "ini": 5835,
+      "fim": 6509,
+      "classe": "empilhagem 1"
+    },
+    {
+      "ini": 4629,
+      "fim": 4799,
+      "classe": "empilhagem 2"
+    },
+    {
+      "ini": 4989,
+      "fim": 5069,
+      "classe": "fim"
+    }
+  ],
+  "contagem": {
+    "train/espera": 128,
+    "test/espera": 55,
+    "train/preparo": 192,
+    "train/solda": 306,
+    "train/montagem": 96,
+    "test/montagem": 42,
+    "train/empilhagem 1": 183,
+    "test/solda": 108,
+    "train/empilhagem 2": 80,
+    "test/empilhagem 2": 34,
+    "train/fim": 38,
+    "test/fim": 16,
+    "test/preparo": 15,
+    "test/empilhagem 1": 135
+  }
+}
